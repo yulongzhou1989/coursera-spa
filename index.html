@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myFirstApp">
   <head>
+    <meta charset="utf-8">
     <title> Single Page Application</title>
   </head>
   <body>
-    <p>This is a first page of SPA..</p>
+    <h1>This is a first page of SPA..</h1>
+    <div ng-controller="MyFirstController">
+      {{sayHello()}}
+    </div>
+    <script type="text/javascript" src="/asset/lib/angular.min.js"></script>
+    <script type="text/javascript" src="/asset/js/app.js"></script>
   </body>
 </html>
