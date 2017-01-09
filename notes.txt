@@ -1,1 +1,2 @@
-browser-sync start --server  --directory --files  "**.*"
+browser-sync start --server  --directory --files  "**/*"
+https://javascript-minifier.com/ minification-js
