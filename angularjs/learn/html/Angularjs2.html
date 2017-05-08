@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../asset/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" type="text/css" href="../asset/css/main.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div ng-controller="StoreController as store">
+				<div ng-repeat="product in store.product" ng-show="product.onSale && product.imgs.length"> 
+					<h1>{{product.name}}</h1>
+					<h2>{{product.price | currency}}</h2>
+					
+					<ul class="img-thumbnails clearfix">
+						<li class="small-image pull-left thumbnail" ng-repeat="img in product.imgs">
+							<img ng-src="{{img}}"/>
+						</li>
+					</ul>
+					<input type="button" ng-show="product.canPurchase" value="Add to Cart">
+					<section ng-controller="PanelController as panel">
+						<ul class="nav nav-pills">
+							<li ng-class="{active:panel.isSelected(1)}"><a href ng-click="panel.selectTab(1)">Description</a></li>
+							<li ng-class="{active:panel.isSelected(2)}"><a href ng-click="panel.selectTab(2)">Specifications</a></li>
+							<li ng-class="{active:panel.isSelected(3)}"><a href ng-click="panel.selectTab(3)">Reviews</a></li>
+						</ul>
+						<div class="panel" ng-show="panel.isSelected(1)">
+							<h4>Description</h4>
+							<p>{{product.description}}</p>
+						</div>
+						<div class="panel" ng-show="panel.isSelected(2)">
+							<h4>Specifications</h4>
+							<p>Not Yet!</p>
+						</div>
+						<div class="panel" ng-show="panel.isSelected(3)">
+							<h4>Reviews</h4>
+<!-- 							<blockquote ng-repeat="review in product.reviews">
+								<b> Stars:{{review.stars}}</b>
+								{{review.body}}
+								<cite>by: {{review.author}}</cite>
+							</blockquote>
+							<form name="reviewForm" ng-repeat="review in product.reviews">
+								<select ng-model="review.stars" class="form-group" convert-to-number>
+									<option value="">Select</option>
+									<option value='1'>1 star</option>
+									<option value='2'>2 star</option>
+									<option value='3'>3 star</option>
+									<option value='4'>4 star</option>
+									<option value='5'>5 star</option>
+								</select>
+								<textarea ng-model="review.body" class="form-group form-control">
+								</textarea>
+								<div class="form-group">
+									<label>by:</label>
+									<input ng-model="review.author" type="email"/>
+								</div>
+								<input type="submit" value="Submit"/>
+							</form>
+						</div> -->
+							<blockquote ng-repeat="review in product.reviews">
+								<b> Stars:{{review.stars}}</b>
+								{{review.body}}
+								<cite>by: {{review.author}}</cite>
+							</blockquote>
+							<form name="reviewForm"  ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)" novalidate>
+								<select ng-model="reviewCtrl.review.stars" class="form-group" convert-to-number required>
+									<option value="">Select</option>
+									<option value='1'>1 star</option>
+									<option value='2'>2 star</option>
+									<option value='3'>3 star</option>
+									<option value='4'>4 star</option>
+									<option value='5'>5 star</option>
+								</select>
+								<textarea ng-model="reviewCtrl.review.body" class="form-group form-control">
+								</textarea>
+								<div class="form-group">
+									<label>by:</label>
+									<input ng-model="reviewCtrl.review.author" type="email" required/>
+								</div>
+								<input type="submit" value="Submit"/>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../asset/js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="../asset/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../asset/js/angular.min.js"></script>
+		<script type="text/javascript" src="../asset/js/app.js"></script>
+	</body>
+</html>

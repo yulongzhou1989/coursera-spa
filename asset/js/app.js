@@ -3,6 +3,10 @@
 
   var myFirstApp = angular.module('myFirstApp', []);
 
+  // myFirstApp.filter('myFilter', CustomFilterFactory){
+  //
+  // }
+
   myFirstApp.controller('MyFirstController', MyFirstController);
   MyFirstController.$inject = ['$scope','$filter'];
   function MyFirstController($scope, $filter) {
@@ -17,17 +21,19 @@
     }
   }
 
-  //angular.module('NameCalculator', [])
-
   myFirstApp.controller('NameCalculator', NameCalculator);
-  NameCalculator.$inject = ['$scope'];
-  function NameCalculator ($scope){
+  NameCalculator.$inject = ['$scope','$filter'];
+  function NameCalculator ($scope, $filter){
     $scope.name = "";
     $scope.totalValue = 0;
 
     $scope.displayNumeric = function(){
-      var totalValue = calNumericForStr($scope.name);
-      $scope.totalValue = totalValue;
+      setTimeout(function () {
+        $scope.$apply(function () {
+          var totalValue = calNumericForStr($scope.name);
+          $scope.totalValue = $filter('number')(totalValue);
+        });
+      },1000);
     }
   }
 
